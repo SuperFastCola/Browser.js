@@ -31,6 +31,9 @@
 			_p.push(['opera',/opera/i]);
 			_p.push(['webkit',/webkit/i]);
 
+			//push new makes to end of array
+			//will have to rebuild to interate through an object instead of an array
+
 			
 			//build is object holdeing selected browser types
 			for(var i=0; i<_p.length;i++){
@@ -50,17 +53,34 @@
 			// 	}
 			// }//end flash chck
 
+			function returnMakesArrayForSpecialCase(caseName,makeobj){
+				var makesMatch = false;
+				for(var i=0; i<makeobj.length; i++){
+					if(String(caseName).match(makeobj[i][0])){
+						makesMatch = makeobj[i];
+					}
+				}
+				return makesMatch;
+			}
+
 			//special cases
 			//Android with Version Number
-			var temp = String(navigator.userAgent).match(_p[12][1]);
+			var temp = String(navigator.userAgent).match(returnMakesArrayForSpecialCase("android",_p)[1]);
 			if(this.makes.android) this.makes.android_v = String(temp).match(/[0-9]{1}/i);
 			else this.makes.android_v = false;
 
 			//iOS Version Number
-			temp = String(navigator.userAgent).match(_p[10][1]);
+			temp = String(navigator.userAgent).match(returnMakesArrayForSpecialCase("ios",_p)[1]);
 			if(this.makes.ios) this.makes.ios_v = String(temp).match(/[0-9]{1}/i);
 			else this.makes.ios_v = false;
 
+			//IE11
+			if(this.makes.windowsnt6 && Boolean(String(navigator.userAgent).match(/Windows/i)) && Boolean(String(navigator.userAgent).match(/Trident/i)) && Boolean(String(navigator.userAgent).match(/rv:11/i))){
+				this.makes.ie11 = true;
+			}
+			else{
+				this.makes.ie11 = false;
+			}
 
 			//unset
 			temp = null;
@@ -68,7 +88,7 @@
 			//this are overridden externally
 			//false by default
 			this.makes.mobile = false;
-			this.makes.tablet = false;
+			this.makes.tablet = false; //this is used in overiding to check for tablet right now.
 
 			//safari under xp
 			if(this.makes.windowsnt5 && this.makes.safari && !this.makes.chrome) this.makes.xpsafari = true;
