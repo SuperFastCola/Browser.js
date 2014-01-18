@@ -16,7 +16,6 @@
 			_p.push(['ie78',/msie\s(7|8)/i]);
 			_p.push(['ie9',/msie\s9/i]);
 			_p.push(['ie10',/msie\s10/i]);
-			_p.push(['ie11',/rv:11/i]);
 			_p.push(['arm',/ARM/i]); //surface tablet variables
 			_p.push(['touch',/touch/i]); //surface tablet variables
 			_p.push(['blackberry',/blackberry|RIM/i]);
@@ -31,8 +30,8 @@
 			_p.push(['chrome',/chrome/i]);
 			_p.push(['opera',/opera/i]);
 			_p.push(['webkit',/webkit/i]);
-			
 
+			
 			//build is object holdeing selected browser types
 			for(var i=0; i<_p.length;i++){
 				var pat = new RegExp(_p[i][1])
@@ -61,6 +60,7 @@
 			temp = String(navigator.userAgent).match(_p[10][1]);
 			if(this.makes.ios) this.makes.ios_v = String(temp).match(/[0-9]{1}/i);
 			else this.makes.ios_v = false;
+
 
 			//unset
 			temp = null;
