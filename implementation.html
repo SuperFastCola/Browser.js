@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title></title>
+	<script src="browser.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	//output all supported keys to console
+	var keys = Browser.getKeys(true);
+	for(var i in keys){
+		console.log("Browser.is(\"" + keys[i][0] + "\") Pattern: " + keys[i][1]);
+	}
+
+	//more keys added for special cases like Android, IOS version, IE11, Surface Tablet, XP Safari
+
+	//shows makes keys that can be searched against - output to console
+	//first part is Browser.is search key 
+	//second is match boolean
+	Browser.showMakes(true);
+
+	</script>
+	
+</head>
+<body>
+
+</body>
+</html>
